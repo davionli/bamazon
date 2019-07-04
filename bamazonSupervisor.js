@@ -52,13 +52,40 @@ function createDepartment() {
         query.sql;
     });
 }
+function  deleteProducts() {
+    var productList = [];
+    connection.query("SELECT product_name FROM products", function(err, res) {
+        if (err) throw err;
+        res.forEach(element=> {
+            productList.push(element.product_name);
+        });
+        inquirer.prompt([
+            {
+                type: "checkbox",
+                name: "waiver",
+                message: "Please check the product you would like to delete",
+                choices: productList
+            }
+        ]).then(response=> {
+            connection.query(
+                "DELETE FROM products WHERE product_name IN (?)",
+                response.waiver,
+                function(err, res) {
+                    if (err) throw err;
+                    console.log("Successfully deleted products!");
+                    // supervisor();
+                }
+            );
+        });
+    });
+}
 function supervisor() {
     inquirer.prompt([
         {
             type: "rawlist",
             name: "menu",
             message: "Welcome manager, what would you want to do today?",
-            choices: ["View Product Sales by Department", "Create New Department", "Quit"]
+            choices: ["View Product Sales by Department", "Create New Department", "Delete Products", "Delete Departments", "Quit"]
         }
     ]).then(response=> {
         switch(response.menu) {
@@ -67,6 +94,12 @@ function supervisor() {
                 break;
             case "Create New Department":
                 createDepartment();
+                break;
+            case "Delete Products":
+                deleteProducts();
+                break;
+            case "Delete Departments":
+                deleteDepartments();
                 break;
             default:
                 connection.end();
