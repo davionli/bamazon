@@ -1,8 +1,8 @@
 require('dotenv').config();
 var mysql = require("mysql");
 var bamazonLogo = require("./bamazonLogo.js");
+var table = require("./table.js");
 var inquirer = require("inquirer");
-var Table = require('cli-table');
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -70,7 +70,7 @@ function customer() {
                 }
             });
         }
-        console.table(res);
+        table(res);
         shopping();
     });
 

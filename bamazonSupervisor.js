@@ -2,7 +2,7 @@ require('dotenv').config();
 var mysql = require("mysql");
 var bamazonLogo = require("./bamazonLogo.js");
 var inquirer = require("inquirer");
-var Table = require('cli-table');
+var table = require("./table.js");
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -22,7 +22,7 @@ function viewSales() {
     query_string += "SELECT departments.department_id,departments.department_name,departments.over_head_costs, SUM(products.product_sales) AS total_sales, SUM(products.product_sales)-departments.over_head_costs AS total_profit FROM departments INNER JOIN products ON products.department_name = departments.department_name  GROUP BY departments.department_name;";
     connection.query(query_string, function(err, res) {
         if (err) throw err;
-        console.table(res[1]);
+        table(res[1]);
         supervisor();
     });
 }

@@ -1,10 +1,24 @@
 var Table = require('cli-table');
-var table = new Table({ head: ["Top Header 1", "Top Header 2"] });
- 
-table.push(
-    ['Value Row 1 Col 1', 'Value Row 1 Col 2'],
-    ['Value Row 2 Col 1', 'Value Row 2 Col 2']
-);
-console.log(table);
-console.log(table.toString());
 
+ 
+
+function printMyTable(data) {
+    var header = [];
+    var keys = Object.keys(data[0]);
+    keys.forEach(e=> {
+        header.push(e);
+    });
+    var table = new Table({ head: header });
+    for (var i=0; i<data.length; i++) {
+        var row = [];
+        var values = Object.values(data[i]);
+        values.forEach(e=> {
+            row.push(e);
+        });
+        table.push(row);
+    }
+    
+    console.log(table.toString());
+}
+
+module.exports = printMyTable;

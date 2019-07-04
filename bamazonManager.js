@@ -2,7 +2,7 @@ require('dotenv').config();
 var inquirer = require("inquirer");
 var mysql = require("mysql");
 var bamazonLogo = require("./bamazonLogo.js");
-var Table = require('cli-table');
+var table = require("./table.js");
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -19,14 +19,14 @@ connection.connect(function(err) {
 function displayProducts() {
     connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
-        console.table(res);
+        table(res);
         manager();
     });
 }
 function displayLow() {
     connection.query("SELECT * FROM products WHERE stock_quantity < 5", function(err, res) {
         if (err) throw err;
-        console.table(res);
+        table(res);
         manager();
     });
 }
