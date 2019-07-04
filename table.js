@@ -9,7 +9,7 @@ function printMyTable(data) {
     var table = new Table({head: header, chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
     , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
     , 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼'
-    , 'right': '║' , 'right-mid': '╢' , 'middle': '│' }, style: {'padding-left': 1, 'padding-right': 1, head: ['cyan'], border: ['white'], compact: false}});
+    , 'right': '║' , 'right-mid': '╢' , 'middle': '│' }, style: {'padding-left': 1, 'padding-right': 1, head: ['cyan','bold'], border: ['magenta'], compact: false}});
     for (var i=0; i<data.length; i++) {
         var row = [];
         var values = Object.values(data[i]);
@@ -18,8 +18,6 @@ function printMyTable(data) {
         });
         table.push(row);
     }
-    console.log(table);
     console.log(table.toString());
 }
-
 module.exports = printMyTable;
