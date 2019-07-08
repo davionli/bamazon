@@ -73,7 +73,7 @@ function  deleteProducts() {
                 function(err, res) {
                     if (err) throw err;
                     console.log("Successfully deleted products!");
-                    // supervisor();
+                    supervisor();
                 }
             );
         });
@@ -85,7 +85,7 @@ function supervisor() {
             type: "rawlist",
             name: "menu",
             message: "Welcome manager, what would you want to do today?",
-            choices: ["View Product Sales by Department", "Create New Department", "Delete Products", "Delete Departments", "Quit"]
+            choices: ["View Product Sales by Department", "Create New Department", "Delete Products", "Quit"]
         }
     ]).then(response=> {
         switch(response.menu) {
@@ -97,9 +97,6 @@ function supervisor() {
                 break;
             case "Delete Products":
                 deleteProducts();
-                break;
-            case "Delete Departments":
-                deleteDepartments();
                 break;
             default:
                 connection.end();
